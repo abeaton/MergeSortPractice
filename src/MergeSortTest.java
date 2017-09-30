@@ -16,7 +16,7 @@ public class MergeSortTest {
     @Test(expected = MalformedParametersException.class)
     public void test_merge_oneNull() {
         Integer[] right = { 1 };
-        MergeSort.Merge(Integer.class,null, right);
+        MergeSort.Merge(Integer.class, null, right);
     }
 
     @Test
@@ -60,5 +60,28 @@ public class MergeSortTest {
 
         Integer[] expected = {2, 3, 4, 5, 6, 9, 10, 11, 15, 19};
         Assert.assertArrayEquals(expected, merged);
+    }
+
+    @Test
+    public void test_merge_useString() {
+        String[] left = {"a", "j", "z"};
+        String[] right = {"c", "h", "q", "r"};
+        String[] merged = MergeSort.Merge(String.class, left, right);
+
+        String[] expected = {"a", "c", "h", "j", "q", "r", "z"};
+        Assert.assertArrayEquals(expected, merged);
+    }
+
+    @Test(expected = MalformedParametersException.class)
+    public void test_throwIfUnsorted(){
+        Integer[] unsorted = { 2, 5, 6, 9, 8};
+        MergeSort.ThrowIfUnsorted(unsorted);
+    }
+
+    @Test(expected = MalformedParametersException.class)
+    public void test_throwIfUnsorted_merge(){
+        Integer[] unsorted = { 2, 5, 6, 9, 8};
+        Integer[] empty = {};
+        MergeSort.Merge(Integer.class, unsorted, empty);
     }
 }

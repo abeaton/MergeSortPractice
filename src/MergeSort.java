@@ -2,14 +2,28 @@ import java.lang.reflect.Array;
 import java.lang.reflect.MalformedParametersException;
 
 public class MergeSort {
-    public static <T extends Comparable> T[] Sort(Class<T> theClass, T[] toSort){
+    public static <T extends Comparable> T[] Sort(Class<T> theClass, T[] toSort)
+    {
         return null;
     }
 
-    public static <T extends Comparable> T[] Merge(Class<T> theClass, T[] left, T[] right) throws MalformedParametersException{
+    /**
+     * Takes in two sorted arrays that implement comparable and returns the two arrays merged together in sorted order
+     * @param theClass => utilized to be able to return an array of the generic type matching the left and right input
+     * @param left => the left hand array (should be sorted)
+     * @param right => the right hand array (should be sorted)
+     * @param <T> => the generic type (
+     * @return the left and right array merged in sorted order
+     * @throws MalformedParametersException
+     */
+    public static <T extends Comparable> T[] Merge(Class<T> theClass, T[] left, T[] right) throws MalformedParametersException
+    {
         if(left == null || right == null){
             throw new MalformedParametersException();
         }
+
+        ThrowIfUnsorted(left);
+        ThrowIfUnsorted(right);
 
         int totalLength = left.length + right.length;
         int leftIndex = 0;
@@ -43,5 +57,14 @@ public class MergeSort {
         }
 
         return newArray;
+    }
+
+    public static <T extends Comparable> void ThrowIfUnsorted(T[] theArray) throws MalformedParametersException
+    {
+        for(int i = 0; i < theArray.length - 1; i++){
+            if(theArray[i].compareTo(theArray[i+1]) > 0){
+                throw new MalformedParametersException();
+            }
+        }
     }
 }
